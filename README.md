@@ -8,6 +8,27 @@
 [![Phase](https://img.shields.io/badge/Phase-1%20%7C%20Seed-blue)]()
 [![Hackathon](https://img.shields.io/badge/Guidewire-DEVTrails%202026-orange)]()
 
+\---
+
+## 👥 Team
+
+|Name|Role|
+|-|-|
+|||
+|||
+|||
+|||
+|||
+
+**Repository:** https://github.com/seronsenapati/Insurly.git
+
+\---
+
+
+
+\## 🎥 Demo Video
+
+\[Phase 1 Strategy \& Prototype Walkthrough](#) ← paste your YouTube/Drive link here
 ---
 
 ## 📌 Problem Statement
