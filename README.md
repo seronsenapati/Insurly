@@ -2,11 +2,11 @@
 
 ### AI-Powered Parametric Income Insurance for Food Delivery Partners
 
-> \*"When the rain stops their work, Insurly starts their pay."\*
+> *"When the rain stops their work, Insurly starts their pay."*
 
-[!\[License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-\[!\[Phase](https://img.shields.io/badge/Phase-1%20%7C%20Seed-blue)]()
-\[!\[Hackathon](https://img.shields.io/badge/Guidewire-DEVTrails%202026-orange)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Phase](https://img.shields.io/badge/Phase-1%20%7C%20Seed-blue)]()
+[![Hackathon](https://img.shields.io/badge/Guidewire-DEVTrails%202026-orange)]()
 
 \---
 
@@ -37,7 +37,7 @@ India's food delivery ecosystem runs on millions of gig workers delivering for p
 
 When heavy rain hits, deliveries halt. When a cyclone warning is issued, zones are locked down. When AQI spikes, outdoor work becomes dangerous. The worker earns nothing — yet has no protection.
 
-> A Zomato delivery partner in Bhubaneswar earns approximately ₹8,000–₹12,000/month. A single week of disruption can wipe out \*\*25–35% of their monthly income\*\* with zero recourse.
+> A Zomato delivery partner in Bhubaneswar earns approximately ₹8,000–₹12,000/month. A single week of disruption can wipe out **25–35% of their monthly income** with zero recourse.
 
 **Insurly** is built to change that.
 
@@ -52,7 +52,7 @@ When heavy rain hits, deliveries halt. When a cyclone warning is issued, zones a
 * Processes payouts **instantly** to the worker's UPI/bank account
 * Prices weekly premiums **dynamically** using AI risk modeling based on the worker's zone, weather history, and delivery patterns
 
-> We insure \*\*lost income only\*\* — not vehicles, not health, not accidents. Pure income protection, nothing else.
+> We insure **lost income only** — not vehicles, not health, not accidents. Pure income protection, nothing else.
 
 \---
 
@@ -127,16 +127,17 @@ Insurly operates on a **weekly pricing model** aligned with the typical payout c
 
 ### Base Premium Tiers
 
-|Coverage Tier|Weekly Premium|Max Weekly Payout|Best For|
-|-|-|-|-|
-|Basic|₹29/week|₹500|Low-risk zones, part-time workers|
-|Standard|₹59/week|₹1,100|Most delivery partners|
-|Premium|₹99/week|₹2,000|High-risk zones, full-time workers|
+| Coverage Tier | Weekly Premium | Max Weekly Payout | Best For |
+|---------------|----------------|-------------------|----------|
+| Basic | ₹29/week | ₹500 | Low-risk zones, part-time workers |
+| Standard | ₹59/week | ₹1,100 | Most delivery partners |
+| Premium | ₹99/week | ₹2,000 | High-risk zones, full-time workers |
 
 ### AI-Driven Dynamic Pricing
 
 The base premium is adjusted dynamically each week using our AI risk engine:
 
+**Premium Calculation Formula:**
 ```
 Final Weekly Premium = Base Premium × Zone Risk Factor × Weather Forecast Factor × History Factor
 
@@ -168,104 +169,103 @@ Disruption Severity:
   Partial (Extreme Heat PM):    30% of daily avg
 ```
 
-\---
+---
 
 ## ⚡ Parametric Triggers
 
 Insurly monitors **5 automated triggers** using real-time APIs. Claims fire automatically when thresholds are crossed — no manual input needed from workers.
 
-|Trigger|Data Source|Threshold|Payout Type|
-|-|-|-|-|
-|🌧️ Heavy Rain|OpenWeatherMap API|Rainfall > 15mm/hr|Half-day or Full-day|
-|🌡️ Extreme Heat|OpenWeatherMap API|Temp > 43°C for 3+ hrs|Partial (afternoon)|
-|🌀 Cyclone / Storm|OpenWeatherMap + IMD alerts|Wind > 60 km/hr OR official alert|Full-day|
-|🌫️ Severe Pollution|OpenAQ API|AQI > 300 (Hazardous)|Half-day|
-|🚫 Zone Lockdown|Government alert feed (mock)|Official curfew/strike notice|Full-day|
+| Trigger | Data Source | Threshold | Payout Type |
+|---------|-------------|-----------|-------------|
+| 🌧️ Heavy Rain | OpenWeatherMap API | Rainfall > 15mm/hr | Half-day or Full-day |
+| 🌡️ Extreme Heat | OpenWeatherMap API | Temp > 43°C for 3+ hrs | Partial (afternoon) |
+| 🌀 Cyclone / Storm | OpenWeatherMap + IMD alerts | Wind > 60 km/hr OR official alert | Full-day |
+| 🌫️ Severe Pollution | OpenAQ API | AQI > 300 (Hazardous) | Half-day |
+| 🚫 Zone Lockdown | Government alert feed (mock) | Official curfew/strike notice | Full-day |
 
-\---
+---
 
 ## 🤖 AI/ML Integration Plan
 
-### 1\. Dynamic Premium Calculation Engine
+### 1. Dynamic Premium Calculation Engine
 
 * **Approach:** Supervised regression model trained on historical weather data, zone-level disruption frequency, and claim payout history
 * **Tech:** Brain.js (JavaScript neural network) + rule-based scoring
 * **Input features:** Worker's zone, delivery platform, avg weekly earnings, time of year, 7-day weather forecast, historical claim frequency in zone
 * **Output:** Adjusted weekly premium price
 
-### 2\. Fraud Detection System
+### 2. Fraud Detection System
 
 * **Approach:** Anomaly detection using a combination of rule-based checks and an ML scoring model
 * **Tech:** Anthropic Claude API for reasoning-based fraud explanation + custom scoring logic
 * **Fraud signals monitored:**
-
   * GPS location vs claimed disruption zone mismatch
   * Active delivery orders logged during claimed disruption window
   * Duplicate claims within same time window
   * Claim pattern outliers vs peer group behavior
 * **Output:** Fraud score (0–100), auto-approve below 30, manual review above 70
 
-### 3\. Risk Profiling
+### 3. Risk Profiling
 
 * **Approach:** Worker onboarding data + historical zone data used to generate a risk profile
 * **Tech:** Anthropic Claude API for intelligent profiling summaries
 * **Factors:** Zone flood history, delivery platform, working hours, season
 
-### 4\. Predictive Disruption Alerts
+### 4. Predictive Disruption Alerts
 
 * **Approach:** 7-day weather forecast analysis to predict upcoming high-risk weeks
 * **Output:** Workers notified in advance; premium adjusted proactively
 
-\---
+---
 
 ## 🏗️ Tech Stack
 
 ### Frontend
 
-|Technology|Purpose|
-|-|-|
-|React.js 14|React framework|
-|Tailwind CSS|Styling|
-|shadcn/ui|Component library|
-|Recharts|Analytics dashboard charts|
-|Leaflet.js|Interactive zone maps|
+| Technology | Purpose |
+|------------|---------|
+| React.js 14 | React framework |
+| Tailwind CSS | Styling |
+| shadcn/ui | Component library |
+| Recharts | Analytics dashboard charts |
+| Leaflet.js | Interactive zone maps |
 
 ### Backend
 
-|Technology|Purpose|
-|-|-|
-|Node.js + Express.js|REST API server|
-|JavaScript|Type safety across codebase|
-|Mongoose|MongoDB ODM|
-|JWT|Authentication|
-|Node-cron|Scheduled trigger monitoring|
+| Technology | Purpose |
+|------------|---------|
+| Node.js + Express.js | REST API server |
+| JavaScript | Type safety across codebase |
+| Mongoose | MongoDB ODM |
+| JWT | Authentication |
+| Node-cron | Scheduled trigger monitoring |
 
 ### Database
 
-|Technology|Purpose|
-|-|-|
-|MongoDB Atlas|Primary database (workers, policies, claims)|
+| Technology | Purpose |
+|------------|---------|
+| MongoDB Atlas | Primary database (workers, policies, claims) |
 
-### AI \& External APIs
+### AI & External APIs
 
-|Service|Purpose|
-|-|-|
-|Gemini API (Google)|Fraud reasoning, risk profiling|
-|Brain.js|Premium calculation ML model|
-|OpenWeatherMap API|Weather disruption triggers|
-|OpenAQ API|Air quality (AQI) triggers|
-|Razorpay Test Mode|Simulated UPI payout processing|
-|Mapbox|Zone mapping and geolocation|
+| Service | Purpose |
+|---------|---------|
+| Gemini API (Google) | Fraud reasoning, risk profiling |
+| Brain.js | Premium calculation ML model |
+| OpenWeatherMap API | Weather disruption triggers |
+| OpenAQ API | Air quality (AQI) triggers |
+| Razorpay Test Mode | Simulated UPI payout processing |
+| Mapbox | Zone mapping and geolocation |
 
 ### Deployment
 
-|Layer|Platform|
-|-|-|
-|Frontend|Vercel|
-|Backend|Railway|
-|Database|MongoDB Atlas (Free Tier)|
+| Layer | Platform |
+|-------|----------|
+| Frontend | Vercel |
+| Backend | Railway |
+| Database | MongoDB Atlas (Free Tier) |
 
-\---
+---
 
 ## 📁 Project Structure
 
@@ -306,7 +306,7 @@ Insurly/
 └── README.md
 ```
 
-\---
+---
 
 ## 🗺️ Application Workflow
 
@@ -344,42 +344,42 @@ Insurly/
    payout amounts, loss ratios, fraud flags, zone risk heatmap
 ```
 
-\---
+---
 
 ## 📅 Development Plan
 
 ### Phase 1 — Seed (March 4–20) ✅ Current
 
-* \[x] Problem research and persona definition
-* \[x] Tech stack finalization
-* \[x] System architecture design
-* \[x] Weekly premium model design
-* \[x] Parametric trigger definition
-* \[ ] GitHub repository setup
-* \[ ] Initial Next.js + Express project scaffolding
-* \[ ] MongoDB Atlas setup
+* [x] Problem research and persona definition
+* [x] Tech stack finalization
+* [x] System architecture design
+* [x] Weekly premium model design
+* [x] Parametric trigger definition
+* [x] GitHub repository setup
+* [ ] Initial Next.js + Express project scaffolding
+* [ ] MongoDB Atlas setup
 
 ### Phase 2 — Scale (March 21 – April 4)
 
-* \[ ] Worker registration and onboarding flow
-* \[ ] Policy creation with dynamic premium calculation (AI)
-* \[ ] OpenWeatherMap + OpenAQ trigger integration
-* \[ ] Auto claim processing engine
-* \[ ] Basic fraud detection (rule-based + Brain.js)
-* \[ ] Razorpay test mode payout integration
-* \[ ] Worker dashboard (policy status, payout history)
+* [ ] Worker registration and onboarding flow
+* [ ] Policy creation with dynamic premium calculation (AI)
+* [ ] OpenWeatherMap + OpenAQ trigger integration
+* [ ] Auto claim processing engine
+* [ ] Basic fraud detection (rule-based + Brain.js)
+* [ ] Razorpay test mode payout integration
+* [ ] Worker dashboard (policy status, payout history)
 
 ### Phase 3 — Soar (April 5–17)
 
-* \[ ] Advanced fraud detection (Claude AI reasoning layer)
-* \[ ] Full admin/insurer analytics dashboard
-* \[ ] Zone risk heatmap (Leaflet.js)
-* \[ ] Predictive disruption alerts
-* \[ ] Performance optimization
-* \[ ] Final demo video production
-* \[ ] Pitch deck preparation
+* [ ] Advanced fraud detection (Claude AI reasoning layer)
+* [ ] Full admin/insurer analytics dashboard
+* [ ] Zone risk heatmap (Leaflet.js)
+* [ ] Predictive disruption alerts
+* [ ] Performance optimization
+* [ ] Final demo video production
+* [ ] Pitch deck preparation
 
-\---
+---
 
 ## 🌍 Why Bhubaneswar?
 
@@ -392,7 +392,7 @@ Bhubaneswar, Odisha is one of India's most disruption-prone cities for delivery 
 
 Insurly's model is built for Bhubaneswar first, designed to scale to any Indian city.
 
-\---
+---
 
 ## ⚙️ Platform Choice: Web App
 
@@ -403,7 +403,7 @@ We chose a **Web App** over a mobile app for the following reasons:
 * **PWA Ready:** Next.js can be configured as a Progressive Web App, giving a near-native mobile experience
 * **Admin Dashboard:** The insurer-side analytics dashboard is far more functional on web
 
-\---
+---
 
 ## 👨‍💻 Getting Started (Phase 1 — Coming Soon)
 
@@ -426,14 +426,13 @@ npm run dev
 
 > Full setup instructions will be updated as development progresses through each phase.
 
-\---
+---
 
 ## 📄 License
 
 This project is licensed under the MIT License.
 
-\---
+---
 
-*Built with ❤️ for Guidewire DEVTrails 2026 — Unicorn Chase
+*Built with ❤️ for Guidewire DEVTrails 2026 — Unicorn Chase  
 Team Insurly | Bhubaneswar, Odisha*
-
