@@ -8,27 +8,6 @@
 [![Phase](https://img.shields.io/badge/Phase-1%20%7C%20Seed-blue)]()
 [![Hackathon](https://img.shields.io/badge/Guidewire-DEVTrails%202026-orange)]()
 
-\---
-
-## 👥 Team
-
-|Name|Role|
-|-|-|
-|||
-|||
-|||
-|||
-|||
-
-**Repository:** https://github.com/seronsenapati/Insurly.git
-
-\---
-
-
-
-\## 🎥 Demo Video
-
-\[Phase 1 Strategy \& Prototype Walkthrough](#) ← paste your YouTube/Drive link here
 ---
 
 ## 📌 Problem Statement
@@ -41,7 +20,7 @@ When heavy rain hits, deliveries halt. When a cyclone warning is issued, zones a
 
 **Insurly** is built to change that.
 
-\---
+---
 
 ## 💡 Our Solution
 
@@ -54,9 +33,9 @@ When heavy rain hits, deliveries halt. When a cyclone warning is issued, zones a
 
 > We insure **lost income only** — not vehicles, not health, not accidents. Pure income protection, nothing else.
 
-\---
+---
 
-## 🎯 Persona \& Scenario Walkthrough
+## 🎯 Persona & Scenario Walkthrough
 
 ### Target Persona
 
@@ -73,7 +52,7 @@ When heavy rain hits, deliveries halt. When a cyclone warning is issued, zones a
 Monday, 3:00 PM — OpenWeatherMap detects rainfall > 15mm/hr in Bhubaneswar
 
 Insurly System:
-  → Trigger fired: HEAVY\_RAIN in zones \[Patia, Nayapalli, Saheed Nagar]
+  → Trigger fired: HEAVY_RAIN in zones [Patia, Nayapalli, Saheed Nagar]
   → Raju's active policy matched to trigger zone ✓
   → Fraud check passed: Raju's GPS is in the affected zone ✓
   → Claim auto-approved
@@ -90,7 +69,7 @@ Manual effort from Raju: Zero
 Odisha State Disaster Management Authority issues cyclone alert
 
 Insurly System:
-  → Trigger fired: CYCLONE\_ALERT — entire Bhubaneswar coverage zone
+  → Trigger fired: CYCLONE_ALERT — entire Bhubaneswar coverage zone
   → All active policyholders in affected zones identified
   → Bulk auto-claims initiated for all matched workers
   → Full-day coverage payout processed per policy terms
@@ -102,7 +81,7 @@ Insurly System:
 Temperature exceeds 44°C for 3+ consecutive hours (IMD data)
 
 Insurly System:
-  → Trigger fired: EXTREME\_HEAT
+  → Trigger fired: EXTREME_HEAT
   → Partial payout triggered (afternoon hours covered)
   → Workers notified with heat advisory + payout confirmation
 ```
@@ -119,7 +98,7 @@ Insurly AI:
   → Worker notified of review process
 ```
 
-\---
+---
 
 ## 💰 Weekly Premium Model
 
