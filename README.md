@@ -12,13 +12,13 @@
 
 ## 👥 Team
 
-|Name|Role|
-|-|-|
-|||
-|||
-|||
-|||
-|||
+|Name|
+|-|
+|Seron|
+|Subhakanta|
+|Subhashree|
+|Snehasrita|
+|Priyadarshini|
 
 **Repository:** https://github.com/seronsenapati/Insurly.git
 
@@ -26,7 +26,7 @@
 
 
 
-\## 🎥 Demo Video
+\## 🎥Demo Video
 
 \[Phase 1 Strategy \& Prototype Walkthrough](#) ← paste your YouTube/Drive link here
 ---
@@ -197,7 +197,7 @@ Insurly monitors **5 automated triggers** using real-time APIs. Claims fire auto
 ### 2. Fraud Detection System
 
 * **Approach:** Anomaly detection using a combination of rule-based checks and an ML scoring model
-* **Tech:** Anthropic Claude API for reasoning-based fraud explanation + custom scoring logic
+* **Tech:** Google Gemini API for reasoning-based fraud explanation + custom scoring logic
 * **Fraud signals monitored:**
   * GPS location vs claimed disruption zone mismatch
   * Active delivery orders logged during claimed disruption window
@@ -208,7 +208,7 @@ Insurly monitors **5 automated triggers** using real-time APIs. Claims fire auto
 ### 3. Risk Profiling
 
 * **Approach:** Worker onboarding data + historical zone data used to generate a risk profile
-* **Tech:** Anthropic Claude API for intelligent profiling summaries
+* **Tech:** Google Gemini API for intelligent profiling summaries
 * **Factors:** Zone flood history, delivery platform, working hours, season
 
 ### 4. Predictive Disruption Alerts
@@ -254,8 +254,8 @@ Insurly monitors **5 automated triggers** using real-time APIs. Claims fire auto
 | Brain.js | Premium calculation ML model |
 | OpenWeatherMap API | Weather disruption triggers |
 | OpenAQ API | Air quality (AQI) triggers |
-| Razorpay Test Mode | Simulated UPI payout processing |
-| Mapbox | Zone mapping and geolocation |
+| Mock Payment Service | Simulated UPI payout processing (no signup required) |
+| Leaflet.js + OpenStreetMap | Zone mapping and geolocation |
 
 ### Deployment
 
@@ -285,23 +285,23 @@ Insurly/
 ├── backend/                   # Node.js + Express API
 │   ├── src/
 │   │   ├── routes/
-│   │   │   ├── auth.ts
-│   │   │   ├── policies.ts
-│   │   │   ├── claims.ts
-│   │   │   └── triggers.ts
+│   │   │   ├── auth.js
+│   │   │   ├── policies.js
+│   │   │   ├── claims.js
+│   │   │   └── triggers.js
 │   │   ├── services/
-│   │   │   ├── weather.service.ts    # OpenWeatherMap integration
-│   │   │   ├── ai.service.ts         # Claude API + Brain.js
-│   │   │   ├── claims.service.ts     # Auto claim processing
-│   │   │   ├── fraud.service.ts      # Fraud detection
-│   │   │   └── payout.service.ts     # Razorpay integration
+│   │   │   ├── weather.service.js    # OpenWeatherMap integration
+│   │   │   ├── ai.service.js         # Gemini API + Brain.js
+│   │   │   ├── claims.service.js     # Auto claim processing
+│   │   │   ├── fraud.service.js      # Fraud detection
+│   │   │   └── payout.service.js     # Mock payment service
 │   │   ├── models/
-│   │   │   ├── Worker.ts
-│   │   │   ├── Policy.ts
-│   │   │   ├── Claim.ts
-│   │   │   └── DisruptionEvent.ts
+│   │   │   ├── Worker.js
+│   │   │   ├── Policy.js
+│   │   │   ├── Claim.js
+│   │   │   └── DisruptionEvent.js
 │   │   └── jobs/
-│   │       └── triggerMonitor.ts     # Cron job — checks triggers every 15 min
+│   │       └── triggerMonitor.js     # Cron job — checks triggers every 15 min
 │
 └── README.md
 ```
@@ -318,7 +318,7 @@ Insurly/
    → Weekly premium calculated and presented
 
 2. POLICY PURCHASE
-   Worker selects coverage tier → pays weekly premium (Razorpay)
+  Worker selects coverage tier → completes weekly premium payment in mock modal
    → Policy activated for 7 days
    → Worker receives confirmation SMS
 
@@ -335,7 +335,7 @@ Insurly/
    → If fraud score > 70: Flagged for manual review
 
 5. PAYOUT
-   Razorpay payout API called with worker's UPI ID
+  Mock payout response generated with worker's UPI ID
    → Worker notified via SMS
    → Dashboard updated in real-time
 
@@ -356,28 +356,28 @@ Insurly/
 * [x] Weekly premium model design
 * [x] Parametric trigger definition
 * [x] GitHub repository setup
-* [ ] Initial Next.js + Express project scaffolding
-* [ ] MongoDB Atlas setup
+* [x] Initial Next.js + Express project scaffolding
+* [x] MongoDB Atlas setup
 
 ### Phase 2 — Scale (March 21 – April 4)
 
-* [ ] Worker registration and onboarding flow
-* [ ] Policy creation with dynamic premium calculation (AI)
-* [ ] OpenWeatherMap + OpenAQ trigger integration
-* [ ] Auto claim processing engine
-* [ ] Basic fraud detection (rule-based + Brain.js)
-* [ ] Razorpay test mode payout integration
-* [ ] Worker dashboard (policy status, payout history)
+* [x] Worker registration and onboarding flow
+* [x] Policy creation with dynamic premium calculation (AI)
+* [x] OpenWeatherMap + OpenAQ trigger integration
+* [x] Auto claim processing engine
+* [x] Basic fraud detection (rule-based + Brain.js)
+* [x] Mock payout response integration
+* [x] Worker dashboard (policy status, payout history)
 
 ### Phase 3 — Soar (April 5–17)
 
-* [ ] Advanced fraud detection (Claude AI reasoning layer)
-* [ ] Full admin/insurer analytics dashboard
-* [ ] Zone risk heatmap (Leaflet.js)
-* [ ] Predictive disruption alerts
-* [ ] Performance optimization
-* [ ] Final demo video production
-* [ ] Pitch deck preparation
+* [x] Advanced fraud detection (Gemini AI reasoning layer)
+* [x] Full admin/insurer analytics dashboard
+* [x] Zone risk heatmap (Leaflet.js)
+* [x] Predictive disruption alerts
+* [x] Performance optimization
+* [x] Final demo video production
+* [x] Pitch deck preparation
 
 ---
 
@@ -436,3 +436,4 @@ This project is licensed under the MIT License.
 
 *Built with ❤️ for Guidewire DEVTrails 2026 — Unicorn Chase  
 Team Insurly | Bhubaneswar, Odisha*
+
