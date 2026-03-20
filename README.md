@@ -26,7 +26,7 @@
 
 
 
-\## 🎥Demo Video
+\## 🎥Demo Video: https://youtu.be/nCXCFgmUV-o
 
 \[Phase 1 Strategy \& Prototype Walkthrough](#) ← paste your YouTube/Drive link here
 ---
