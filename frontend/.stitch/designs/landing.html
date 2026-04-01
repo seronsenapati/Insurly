@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Insurly | Protect your income. Every single week.</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Plus+Jakarta+Sans:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-container": "#002114",
+              "on-primary-fixed-variant": "#45455b",
+              "on-tertiary": "#ffffff",
+              "secondary-container": "#d8d6fd",
+              "inverse-surface": "#31302d",
+              "on-error": "#ffffff",
+              "on-surface": "#1c1c19",
+              "surface": "#FAF7F2",
+              "tertiary-fixed": "#b1f0ce",
+              "primary": "#1A1A2E",
+              "on-secondary": "#ffffff",
+              "on-tertiary-container": "#539072",
+              "on-secondary-fixed-variant": "#444463",
+              "on-background": "#1c1c19",
+              "on-primary-container": "#83829b",
+              "primary-fixed": "#e2e0fc",
+              "inverse-primary": "#c6c4df",
+              "primary-fixed-dim": "#c6c4df",
+              "secondary-fixed-dim": "#c4c3e9",
+              "background": "#FAF7F2",
+              "outline-variant": "#c8c5cd",
+              "secondary-fixed": "#e2dfff",
+              "primary-container": "#1A1A2E",
+              "outline": "#78767d",
+              "on-primary-fixed": "#1a1a2e",
+              "inverse-on-surface": "#f3f0eb",
+              "on-tertiary-fixed-variant": "#0e5138",
+              "secondary": "#4A4A6A",
+              "surface-variant": "#e5e2dd",
+              "on-surface-variant": "#47464c",
+              "tertiary-fixed-dim": "#95d4b3",
+              "on-secondary-container": "#5c5c7d",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-highest": "#e5e2dd",
+              "surface-container-low": "#f6f3ee",
+              "surface-dim": "#dcdad5",
+              "surface-container-high": "#ebe8e3",
+              "tertiary": "#000000",
+              "error": "#ba1a1a",
+              "surface-bright": "#FAF7F2",
+              "error-container": "#ffdad6",
+              "surface-tint": "#1A1A2E",
+              "on-secondary-fixed": "#181835",
+              "on-tertiary-fixed": "#002114",
+              "on-primary": "#ffffff",
+              "surface-container": "#f0ede9",
+              "on-error-container": "#93000a"
+            },
+            fontFamily: {
+              "headline": ["Fraunces", "serif"],
+              "body": ["Plus Jakarta Sans", "sans-serif"],
+              "label": ["Plus Jakarta Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .font-serif-italic { font-family: 'Fraunces', serif; font-style: italic; }
+    </style>
+<style>
+    @keyframes bounce-subtle {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    .animate-bounce-subtle {
+        animation: bounce-subtle 4s ease-in-out infinite;
+    }
+</style></head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-lg">
+<div class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto">
+<div class="text-2xl font-serif-italic font-bold text-primary">Insurly</div>
+<div class="hidden md:flex items-center space-x-10 text-sm font-medium text-secondary">
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Home</a>
+<a class="hover:text-primary transition-colors" href="#">How It Works</a>
+<a class="hover:text-primary transition-colors" href="#">Coverage Plans</a>
+<a class="hover:text-primary transition-colors" href="#">Why Us</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-6 py-2 text-primary font-bold text-sm">Login</button>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-full font-bold text-sm flex items-center gap-2 group">
+                    Get Started
+                    <span class="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px]">arrow_forward</span>
+</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-24">
+<!-- Hero Section -->
+<section class="px-8 py-16 md:py-24 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-6 space-y-8">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 bg-surface-container-high rounded-full text-[10px] font-bold tracking-widest text-secondary uppercase">
+<span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                    Live in Bhubaneswar · Zomato &amp; Swiggy Partners
+                </div>
+<h1 class="text-5xl md:text-7xl font-headline font-medium leading-[1] text-primary">
+                    Protect your income. <span class="font-serif-italic block">Every single week.</span>
+</h1>
+<p class="text-lg text-secondary max-w-md leading-relaxed">
+                    When heavy rain, heat waves, or disruptions stop your deliveries — we automatically send cash to your UPI. No forms. No waiting.
+                </p>
+<div class="flex flex-wrap items-center gap-8 pt-4">
+<button class="bg-primary text-on-primary flex items-center gap-3 px-8 py-4 rounded-full font-bold hover:scale-105 transition-transform group shadow-lg shadow-primary/10">
+                        Get Protected Now
+                        <span class="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center group-hover:translate-x-1 transition-transform">
+<span class="material-symbols-outlined text-sm font-bold">arrow_forward</span>
+</span>
+</button>
+<a class="font-bold text-primary border-b border-primary/20 pb-1" href="#">View Coverage</a>
+</div>
+</div>
+<div class="lg:col-span-6 relative">
+<div class="rounded-[2.5rem] overflow-hidden shadow-2xl relative aspect-[4/5] md:aspect-auto">
+<img alt="Delivery rider in rain coat riding a motorbike" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy3TH_Nigx3RX7hPF_8-kb__xXqW7kQn4FRYGXC-B-nYZNopIPNNvk_wU19WeG0uY12Oa1WmuFn-IqbD7nbd2iT1wwm54PBFd-HegSZMVk5UYa2C5s8TiiigFNAAb4B3X_uWrUC-0IwnEHyAlbGjCQ1NAxr1VVEGTNeyq927eNMl40cdV1BnjeCHnmNrHJPjmpusZQaVZf1Vb5GokFvdifdNtvrPznf6oo179N57jZBJYf5kql1LZsfhnBhKnGeDBeMyz9Igma4qc"/>
+<!-- Payout Overlay -->
+<div class="absolute bottom-8 -left-8 md:-left-12 bg-white/90 backdrop-blur-md text-slate-900 p-6 rounded-2xl shadow-xl max-w-xs border border-white/20 animate-bounce-subtle">
+<div class="flex items-center gap-3 mb-2">
+<div class="bg-green-500 rounded-full p-1">
+<span class="material-symbols-outlined text-white text-sm font-bold">check</span>
+</div>
+<span class="font-bold text-sm">Payment Released</span>
+</div>
+<p class="text-xs text-slate-600 leading-snug">₹850 sent to your UPI due to Monsoon Alert in Bhubaneswar.</p>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div></div>
+<!-- Decorative element -->
+</div>
+</section>
+<!-- Partner Strip -->
+<section class="py-16 border-y border-outline-variant/10">
+<div class="max-w-7xl mx-auto px-8">
+<p class="text-center text-[10px] uppercase tracking-[0.2em] font-bold text-secondary mb-12">Proud to partner with</p>
+<div class="flex flex-wrap justify-center md:justify-between items-center gap-x-16 gap-y-10 opacity-70 grayscale">
+<span class="text-lg font-bold font-headline">OpenWeatherMap</span>
+<span class="text-lg font-bold font-headline">Google Gemini AI</span>
+<span class="text-lg font-bold font-headline">Brain.js</span>
+<span class="text-lg font-bold font-headline">OpenAQ</span>
+<span class="text-lg font-bold font-headline">Guidewire DEVTrails</span>
+</div>
+</div>
+</section>
+<!-- How It Works -->
+<section class="px-8 py-24 max-w-7xl mx-auto">
+<div class="text-center mb-16 space-y-4">
+<h2 class="text-4xl md:text-5xl font-headline text-primary">Built for the <span class="font-serif-italic">street</span>, powered by <span class="font-serif-italic">data.</span></h2>
+<p class="text-secondary max-w-2xl mx-auto text-sm leading-relaxed">
+                    Skip the paperwork. Our parametric system monitors real-time environmental triggers and issues payouts automatically.
+                </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Step 1 -->
+<div class="bg-surface-container-lowest p-8 rounded-3xl space-y-6 border border-outline-variant/5">
+<span class="w-12 h-12 flex items-center justify-center text-sm font-bold bg-surface-container-high rounded-full">1</span>
+<div>
+<h3 class="text-xl font-bold mb-3">Register</h3>
+<p class="text-secondary text-sm leading-relaxed">Connect your delivery ID and UPI handle in 30 seconds. No complex background checks.</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="bg-surface-container-lowest p-8 rounded-3xl space-y-6 border border-outline-variant/5">
+<span class="w-12 h-12 flex items-center justify-center text-sm font-bold bg-surface-container-high rounded-full">2</span>
+<div>
+<h3 class="text-xl font-bold mb-3">Pick coverage</h3>
+<p class="text-secondary text-sm leading-relaxed">Choose your daily protection limit. Plans start as low as ₹49 per week.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="bg-surface-container-lowest p-8 rounded-3xl space-y-6 border border-outline-variant/5">
+<span class="w-12 h-12 flex items-center justify-center text-sm font-bold bg-surface-container-high rounded-full">3</span>
+<div>
+<h3 class="text-xl font-bold mb-3">We monitor</h3>
+<p class="text-secondary text-sm leading-relaxed">Our AI tracks weather, AQI, and local disruptions through Google Gemini &amp; OpenAQ.</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="bg-surface-container-lowest p-8 rounded-3xl space-y-6 border border-outline-variant/5">
+<span class="w-12 h-12 flex items-center justify-center text-sm font-bold bg-surface-container-high rounded-full">4</span>
+<div>
+<h3 class="text-xl font-bold mb-3">Cash arrives</h3>
+<p class="text-secondary text-sm leading-relaxed">Trigger reached? Funds are sent instantly. Focus on resting while we handle the loss.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Five Triggers Section -->
+<section class="px-8 py-24 bg-white/30">
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-start">
+<div class="lg:w-1/3 space-y-6">
+<h2 class="text-4xl font-headline text-primary">Five triggers.<br/><span class="font-serif-italic">One policy.</span></h2>
+<p class="text-secondary text-sm leading-relaxed">We don't ask for hospital bills. We pay based on verifiable data from our trusted partners.</p>
+</div>
+<div class="lg:w-2/3 grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+<!-- Heavy Rain -->
+<div class="bg-white p-8 rounded-3xl text-center space-y-4 shadow-sm">
+<span class="material-symbols-outlined text-blue-500 text-3xl">rainy</span>
+<h4 class="font-bold text-sm uppercase tracking-widest">Heavy Rain</h4>
+<p class="text-[10px] text-secondary">Above 15mm/hr</p>
+</div>
+<!-- Heat Waves -->
+<div class="bg-white p-8 rounded-3xl text-center space-y-4 shadow-sm">
+<span class="material-symbols-outlined text-orange-500 text-3xl">thermostat</span>
+<h4 class="font-bold text-sm uppercase tracking-widest">Heat Waves</h4>
+<p class="text-[10px] text-secondary">Above 42°C</p>
+</div>
+<!-- Cyclone -->
+<div class="bg-white p-8 rounded-3xl text-center space-y-4 shadow-sm">
+<span class="material-symbols-outlined text-slate-700 text-3xl">cyclone</span>
+<h4 class="font-bold text-sm uppercase tracking-widest">Cyclone</h4>
+<p class="text-[10px] text-secondary">Wind &gt; 60km/h</p>
+</div>
+<!-- Pollution -->
+<div class="bg-white p-8 rounded-3xl text-center space-y-4 shadow-sm">
+<span class="material-symbols-outlined text-teal-600 text-3xl">air</span>
+<h4 class="font-bold text-sm uppercase tracking-widest">Pollution</h4>
+<p class="text-[10px] text-secondary">AQI above 400</p>
+</div>
+<!-- Lockdown -->
+<div class="bg-white p-8 rounded-3xl text-center space-y-4 shadow-sm">
+<span class="material-symbols-outlined text-red-500 text-3xl">lock</span>
+<h4 class="font-bold text-sm uppercase tracking-widest">Lockdown</h4>
+<p class="text-[10px] text-secondary">Govt Restricted</p>
+</div>
+<!-- More coming -->
+<div class="bg-primary p-8 rounded-3xl text-center flex items-center justify-center shadow-lg">
+<p class="text-on-primary font-bold text-sm">More coming soon...</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="px-8 py-24 max-w-7xl mx-auto">
+<div class="text-center mb-16 space-y-4">
+<h2 class="text-4xl md:text-5xl font-headline text-primary">Honest pricing. <span class="font-serif-italic">Paid weekly.</span></h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+<!-- Starter -->
+<div class="bg-white p-10 rounded-[2.5rem] flex flex-col space-y-8 border border-outline-variant/5">
+<div>
+<h3 class="text-xs font-bold uppercase tracking-widest text-secondary mb-4">Starter</h3>
+<div class="text-4xl font-headline font-medium">₹49<span class="text-sm font-body text-secondary ml-1">/week</span></div>
+</div>
+<ul class="space-y-4 text-sm flex-grow">
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-green-500 text-lg font-bold">check</span> Rain &amp; Heat protection</li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-green-500 text-lg font-bold">check</span> ₹500 daily payout cap</li>
+<li class="flex items-center gap-3 text-secondary opacity-50"><span class="material-symbols-outlined text-lg">circle</span> Priority support</li>
+</ul>
+<button class="w-full py-4 rounded-full border border-primary/20 font-bold text-sm hover:bg-primary hover:text-white transition-all">Select Basic</button>
+</div>
+<!-- Professional -->
+<div class="bg-primary text-on-primary p-10 rounded-[2.5rem] flex flex-col space-y-8 relative shadow-2xl scale-105">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-400 text-primary px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase">Most Popular</div>
+<div>
+<h3 class="text-xs font-bold uppercase tracking-widest text-white/60 mb-4">Professional</h3>
+<div class="text-4xl font-headline font-medium">₹99<span class="text-sm font-body text-white/60 ml-1">/week</span></div>
+</div>
+<ul class="space-y-4 text-sm flex-grow">
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-green-400 text-lg font-bold">check</span> All trigger protection</li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-green-400 text-lg font-bold">check</span> ₹750 daily payout cap</li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-green-400 text-lg font-bold">check</span> Instant UPI transfers</li>
+</ul>
+<button class="w-full py-4 rounded-full bg-white text-primary font-bold text-sm hover:scale-[1.02] transition-transform">Select Standard</button>
+</div>
+<!-- Elite Fleet -->
+<div class="bg-white p-10 rounded-[2.5rem] flex flex-col space-y-8 border border-outline-variant/5">
+<div>
+<h3 class="text-xs font-bold uppercase tracking-widest text-secondary mb-4">Elite Fleet</h3>
+<div class="text-4xl font-headline font-medium">₹189<span class="text-sm font-body text-secondary ml-1">/week</span></div>
+</div>
+<ul class="space-y-4 text-sm flex-grow">
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-green-500 text-lg font-bold">check</span> All triggers + Custom zones</li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-green-500 text-lg font-bold">check</span> ₹1,500 daily payout cap</li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-green-500 text-lg font-bold">check</span> 24/7 Dedicated Concierge</li>
+</ul>
+<button class="w-full py-4 rounded-full border border-primary/20 font-bold text-sm hover:bg-primary hover:text-white transition-all">Select Premium</button>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="px-8 py-24">
+<div class="max-w-7xl mx-auto bg-primary rounded-[3rem] p-16 md:p-24 text-center space-y-12 relative overflow-hidden">
+<!-- Abstract circles -->
+<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+<div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+<h2 class="text-5xl md:text-7xl font-headline text-on-primary max-w-4xl mx-auto leading-[1.1]">
+                    Your next ride <span class="font-serif-italic">is covered.</span>
+</h2>
+<div>
+<button class="bg-white text-primary inline-flex items-center gap-3 px-10 py-5 rounded-full font-bold text-lg hover:scale-105 transition-transform group shadow-2xl">
+                        Get Protected Now
+                        <span class="w-7 h-7 bg-primary/10 rounded-full flex items-center justify-center group-hover:translate-x-1 transition-transform">
+<span class="material-symbols-outlined text-sm font-bold">arrow_forward</span>
+</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="py-20 px-8 border-t border-outline-variant/10">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-12">
+<div class="md:col-span-2 space-y-6">
+<div class="text-2xl font-serif-italic font-bold text-primary">Insurly</div>
+<p class="text-sm text-secondary leading-relaxed max-w-xs uppercase font-bold tracking-tighter">
+                    Smart parametric insurance for the modern gig economy.
+                </p>
+<p class="text-[10px] text-secondary/60">Built for Guidewire DEVTrails 2024</p>
+</div>
+<div>
+<h5 class="font-bold text-[10px] uppercase tracking-widest text-secondary mb-6">Solutions</h5>
+<ul class="space-y-4 text-xs font-bold uppercase tracking-tighter text-secondary/70">
+<li><a class="hover:text-primary transition-colors" href="#">Delivery Fleet</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Private Pilots</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">API Access</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold text-[10px] uppercase tracking-widest text-secondary mb-6">Company</h5>
+<ul class="space-y-4 text-xs font-bold uppercase tracking-tighter text-secondary/70">
+<li><a class="hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Claims Hub</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Partners</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold text-[10px] uppercase tracking-widest text-secondary mb-6">Legal</h5>
+<ul class="space-y-4 text-xs font-bold uppercase tracking-tighter text-secondary/70">
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Cookie Settings</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-bold tracking-widest text-secondary/40 uppercase">
+<p>© 2024 Insurly Editorial Insurance. All rights reserved.</p>
+<div class="flex gap-8">
+<a href="#">Security</a>
+<a href="#">Accessibility</a>
+<a href="#">Whistleblower</a>
+</div>
+</div>
+</footer>
+</body></html>

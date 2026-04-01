@@ -437,3 +437,45 @@ This project is licensed under the MIT License.
 *Built with ‚ù§Ô∏è for Guidewire DEVTrails 2026 ‚Äî Unicorn Chase  
 Team Insurly | Bhubaneswar, Odisha*
 
+
+## ?? Demo Video
+
+| Phase | Video | Description |
+|---|---|---|
+| Phase 1 ó Seed | [Watch Walkthrough](YOUR_YOUTUBE_OR_DRIVE_LINK) | Strategy and prototype |
+| Phase 2 ó Scale | [Watch Demo](YOUR_PHASE2_VIDEO_LINK) | Working product demo ó Registration, Policy, Premium, Claims |
+
+## ?? Quick Setup
+
+```bash
+# Clone
+git clone https://github.com/seronsenapati/Insurly.git
+cd Insurly
+
+# Backend
+cd backend
+npm install
+cp .env.example .env
+# Fill in your API keys in .env
+node seed.js
+npm run dev
+
+# Frontend (new terminal)
+cd frontend
+npm install
+cp .env.example .env
+npm run dev
+```
+
+**Demo Credentials:**
+```
+Admin:  admin@insurly.com  /  Admin@1234
+Worker: raju@test.com      /  Test@1234
+```
+
+## ? Phase 2 Features
+
+- [x] **Registration Process** ó 6-step onboarding with Gemini AI risk profiling
+- [x] **Policy Management** ó Weekly policies with Brain.js dynamic pricing
+- [x] **Dynamic Premium Calculation** ó Neural network trained on zone and weather data
+- [x] **Claims Management** ó Automated parametric claims with 10-signal fraud detection
