@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+.env.local
+.env.production
+*.log
+err.txt
+err2.txt
+err_utf8.txt
+err2_utf8.txt
+log.txt
+log2.txt
+test_admin.js
+coverage/
+.nyc_output/

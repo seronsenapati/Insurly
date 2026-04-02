@@ -1,0 +1,83 @@
+# ===========================
+# NODE MODULES
+# ===========================
+node_modules/
+
+# ===========================
+# BUILD OUTPUTS
+# ===========================
+dist/
+build/
+.vite/
+
+# ===========================
+# ENVIRONMENT FILES — NEVER COMMIT API KEYS
+# ===========================
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
+
+# ===========================
+# LOGS AND TEMP FILES
+# ===========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+err.txt
+err2.txt
+err_utf8.txt
+err2_utf8.txt
+log.txt
+log2.txt
+
+# ===========================
+# EDITOR AND OS FILES
+# ===========================
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# ===========================
+# TEST COVERAGE
+# ===========================
+coverage/
+.nyc_output/
+
+# ===========================
+# STITCH UI DESIGN FILES — NOT NEEDED IN REPO
+# ===========================
+stitch/
+
+# ===========================
+# BACKUP AND TEMP FILES
+# ===========================
+*.bak
+*.backup
+*.old
+*_copy.*
+temp_*
+debug_*
+scratch_*
+
+# ===========================
+# TEST FILES THAT SHOULDNT BE IN SUBMISSION
+# ===========================
+test_admin.js
+__tests__/
+*.test.js
+*.test.jsx
+*.spec.js
+
+# ===========================
+# ZIP FILES
+# ===========================
+*.zip
+*.rar
+*.tar.gz

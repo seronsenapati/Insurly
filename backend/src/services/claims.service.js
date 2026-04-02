@@ -1,0 +1,153 @@
+const Claim = require('../models/Claim.model');
+const Policy = require('../models/Policy.model');
+const Worker = require('../models/Worker.model');
+const Payout = require('../models/Payout.model');
+const DisruptionEvent = require('../models/DisruptionEvent.model');
+const { runAllFraudChecks, getClaimStatusFromFraudScore } = require('./fraud.service');
+const { processPayout } = require('./payout.service');
+const { calculatePayout } = require('../utils/payoutCalculator');
+
+/**
+ * Auto-create claims for all affected workers when a disruption event occurs
+ * @param {Object} disruptionEvent - The disruption event document
+ * @returns {Promise<{ claimsCreated: number, payoutsProcessed: number, totalPayoutAmount: number }>}
+ */
+const autoCreateClaims = async (disruptionEvent) => {
+  let claimsCreated = 0;
+  let payoutsProcessed = 0;
+  let totalPayoutAmount = 0;
+
+  try {
+    // Find all workers in affected zones with active policies
+    const affectedWorkers = await Worker.find({
+      'zone.area': { $in: disruptionEvent.affectedZones }
+    });
+
+    const workerIds = affectedWorkers.map(w => w._id);
+
+    // Find active policies for these workers
+    const activePolicies = await Policy.find({
+      workerId: { $in: workerIds },
+      status: 'active',
+      startDate: { $lte: new Date() },
+      endDate: { $gte: new Date() },
+      activeTriggers: disruptionEvent.type
+    });
+
+
+    for (const policy of activePolicies) {
+      try {
+        const worker = affectedWorkers.find(w => w._id.toString() === policy.workerId.toString());
+        if (!worker) continue;
+
+        // Calculate payout amount
+        const payoutAmount = calculatePayout(
+          worker.avgWeeklyEarnings,
+          worker.workingDaysPerWeek,
+          disruptionEvent.severity,
+          policy.maxWeeklyPayout
+        );
+
+        // Determine trigger threshold
+        const thresholds = {
+          heavy_rain: 15, extreme_heat: 43,
+          cyclone_storm: 60, severe_pollution: 300, zone_lockdown: 0
+        };
+
+        // Run fraud checks
+        const tempClaim = { id: 'temp' };
+        const fraudResult = await runAllFraudChecks(worker, policy, tempClaim, disruptionEvent);
+        // Send neutral notification if flagged
+        if (fraudResult.fraudScore >= 70 && fraudResult.fraudScore < 100) {
+        }
+
+        // Skip if duplicate claim detected (fraud score 100)
+        if (fraudResult.fraudScore >= 100) {
+          continue;
+        }
+
+        const claimStatus = getClaimStatusFromFraudScore(fraudResult.fraudScore);
+
+        // Create claim
+        const claim = await Claim.create({
+          workerId: worker._id,
+          policyId: policy._id,
+          disruptionEventId: disruptionEvent._id,
+          triggerType: disruptionEvent.type,
+          triggerValue: disruptionEvent.reading,
+          triggerThreshold: thresholds[disruptionEvent.type] || 0,
+          disruptionSeverity: disruptionEvent.severity,
+          payoutAmount,
+          status: claimStatus,
+          fraudScore: fraudResult.fraudScore,
+          fraudReasons: fraudResult.fraudReasons,
+          fraudAnalysis: fraudResult.fraudAnalysis,
+          autoProcessed: claimStatus === 'auto_approved',
+          processedAt: claimStatus === 'auto_approved' ? new Date() : null
+        });
+
+        claimsCreated++;
+
+        // Auto-process payout for auto_approved claims
+        if (claimStatus === 'auto_approved') {
+          try {
+            const payoutResult = await processPayout(
+              worker._id.toString(),
+              payoutAmount,
+              worker.upiId || 'default@upi'
+            );
+
+            await Payout.create({
+              workerId: worker._id,
+              claimId: claim._id,
+              amount: payoutAmount,
+              upiId: worker.upiId || 'default@upi',
+              transactionId: payoutResult.transactionId,
+              status: 'completed',
+              processedAt: payoutResult.processedAt
+            });
+
+            // Update claim status to paid
+            claim.status = 'paid';
+            await claim.save();
+
+            payoutsProcessed++;
+            totalPayoutAmount += payoutAmount;
+
+          } catch (payoutError) {
+            console.error(`[${new Date().toISOString()}] ❌ Payout failed for ${worker.name}:`, payoutError.message);
+            // Create failed payout record
+            await Payout.create({
+              workerId: worker._id,
+              claimId: claim._id,
+              amount: payoutAmount,
+              upiId: worker.upiId || 'default@upi',
+              transactionId: `FAILED_${Date.now()}`,
+              status: 'failed',
+              processedAt: new Date()
+            });
+          }
+        } else {
+        }
+      } catch (workerError) {
+        console.error(`[${new Date().toISOString()}] ❌ Error processing worker:`, workerError.message);
+      }
+    }
+
+    // Update disruption event with stats
+    disruptionEvent.affectedWorkerIds = workerIds;
+    disruptionEvent.claimsTriggered = claimsCreated;
+    disruptionEvent.totalPayoutTriggered = totalPayoutAmount;
+    await disruptionEvent.save();
+
+  } catch (error) {
+    console.error(`[${new Date().toISOString()}] ❌ Auto-create claims error:`, error.message);
+  }
+
+  return { claimsCreated, payoutsProcessed, totalPayoutAmount };
+};
+
+module.exports = {
+  autoCreateClaims
+};
+
