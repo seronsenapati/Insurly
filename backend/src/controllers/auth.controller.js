@@ -22,11 +22,39 @@ const register = async (req, res, next) => {
   try {
     const { name, phone, email, password, platform, zone, avgWeeklyEarnings, workingDaysPerWeek, workingHoursPerDay, upiId } = req.body;
 
+    // Validate required fields
+    if (!name || !phone || !email || !password || !platform || !zone || !avgWeeklyEarnings || !upiId) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Missing required fields. Please provide name, phone, email, password, platform, zone, avgWeeklyEarnings, and upiId.' 
+      });
+    }
+
+    // Validate email format
+    const emailRegex = /^\S+@\S+\.\S+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ success: false, message: 'Invalid email format' });
+    }
+
+    // Validate phone number (10 digits)
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phone)) {
+      return res.status(400).json({ success: false, message: 'Phone number must be exactly 10 digits' });
+    }
+
+    // Validate UPI ID format
+    const upiRegex = /^\S+@\S+$/;
+    if (!upiRegex.test(upiId)) {
+      return res.status(400).json({ success: false, message: 'Invalid UPI ID format (e.g., name@bank)' });
+    }
+
     // Check if worker already exists
     const existingWorker = await Worker.findOne({ $or: [{ email }, { phone }] });
     if (existingWorker) {
       return res.status(400).json({ success: false, message: 'Worker with this email or phone already exists' });
     }
+
+    console.log('Creating worker with data:', { name, phone, email, platform, zone, avgWeeklyEarnings, upiId });
 
     // Create worker
     const worker = await Worker.create({
@@ -34,6 +62,8 @@ const register = async (req, res, next) => {
       avgWeeklyEarnings, workingDaysPerWeek: workingDaysPerWeek || 6,
       workingHoursPerDay: workingHoursPerDay || 10, upiId
     });
+
+    console.log('Worker created successfully:', worker._id);
 
     // Generate Gemini risk profile
     try {
@@ -45,6 +75,7 @@ const register = async (req, res, next) => {
       worker.riskScore = riskResult.riskScore;
       worker.riskProfile = riskResult.riskProfile;
       await worker.save();
+      console.log('Risk profile generated for worker:', worker._id);
     } catch (riskError) {
       console.error('Risk profile generation error:', riskError.message);
     }
@@ -68,6 +99,27 @@ const register = async (req, res, next) => {
       message: 'Registration successful'
     });
   } catch (error) {
+    console.error('Registration error:', error);
+    
+    // Handle Mongoose validation errors
+    if (error.name === 'ValidationError') {
+      const errors = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Validation failed', 
+        errors 
+      });
+    }
+    
+    // Handle duplicate key errors
+    if (error.code === 11000) {
+      const field = Object.keys(error.keyValue)[0];
+      return res.status(400).json({ 
+        success: false, 
+        message: `${field} already exists` 
+      });
+    }
+    
     next(error);
   }
 };

@@ -23,8 +23,8 @@ const OnboardingPage = () => {
     zone: 'Patia',
     pincode: '',
     avgWeeklyEarnings: '',
-    workingDaysPerWeek: '',
-    workingHoursPerDay: '',
+    workingDaysPerWeek: '6',
+    workingHoursPerDay: '8',
     upiId: ''
   });
 
@@ -39,6 +39,43 @@ const OnboardingPage = () => {
   const prevStep = () => setCurrentStep(s => Math.max(s - 1, 1));
 
   const handleRegister = async () => {
+    console.log('=== Registration Attempt ===');
+    console.log('Form data:', formData);
+    
+    // Validate required fields
+    const requiredFields = ['name', 'phone', 'email', 'password', 'upiId', 'avgWeeklyEarnings', 'workingDaysPerWeek', 'workingHoursPerDay'];
+    const missingFields = requiredFields.filter(field => !formData[field] || formData[field] === '');
+    
+    if (missingFields.length > 0) {
+      console.log('Missing fields:', missingFields);
+      toast.error(`Please fill in all required fields: ${missingFields.join(', ')}`);
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^\S+@\S+\.\S+$/;
+    if (!emailRegex.test(formData.email)) {
+      console.log('Invalid email:', formData.email);
+      toast.error('Please enter a valid email address');
+      return;
+    }
+
+    // Validate phone number (10 digits)
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      console.log('Invalid phone:', formData.phone);
+      toast.error('Phone number must be exactly 10 digits');
+      return;
+    }
+
+    // Validate UPI ID format
+    const upiRegex = /^\S+@\S+$/;
+    if (!upiRegex.test(formData.upiId)) {
+      console.log('Invalid UPI:', formData.upiId);
+      toast.error('Please enter a valid UPI ID (e.g., name@bank)');
+      return;
+    }
+
     setLoading(true);
     try {
       const payload = {
@@ -49,14 +86,26 @@ const OnboardingPage = () => {
           city: 'Bhubaneswar'
         }
       };
+      console.log('Sending registration payload:', payload);
+      
       const res = await api.post('/auth/register', payload);
+      console.log('Registration response:', res.data);
+      
       const token = res.data.data?.token || res.data.token;
+      if (!token) {
+        console.error('No token in response:', res.data);
+        throw new Error('No token received from server');
+      }
+      
       localStorage.setItem('insurly_token', token);
       const riskData = res.data.data?.riskProfile || res.data.data?.worker?.riskProfile;
       setRiskAssessment(riskData || { score: 65, explanation: 'Standard risk profile generated.' });
       nextStep();
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Registration failed');
+      console.error('Registration error:', err);
+      console.error('Error response:', err.response?.data);
+      const errorMessage = err.response?.data?.message || err.message || 'Registration failed';
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -129,7 +178,16 @@ const OnboardingPage = () => {
                   </div>
                   <div className="space-y-2">
                     <label className='text-[10px] font-bold text-secondary uppercase tracking-[0.2em]'>Phone</label>
-                    <input name='phone' type='tel' value={formData.phone} onChange={handleChange} className='w-full p-4 bg-muted border-none rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all' />
+                    <input 
+                      name='phone' 
+                      type='tel' 
+                      placeholder='9876543210'
+                      maxLength={10}
+                      value={formData.phone} 
+                      onChange={handleChange} 
+                      className='w-full p-4 bg-muted border-none rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all' 
+                    />
+                    <p className="text-[9px] text-secondary">10-digit mobile number</p>
                   </div>
                   <div className="space-y-2">
                     <label className='text-[10px] font-bold text-secondary uppercase tracking-[0.2em]'>Email</label>
@@ -176,7 +234,45 @@ const OnboardingPage = () => {
                   </div>
                   <div className="space-y-2">
                     <label className='text-[10px] font-bold text-secondary uppercase tracking-[0.2em]'>Weekly Earnings (Est.)</label>
-                    <input name='avgWeeklyEarnings' type='number' value={formData.avgWeeklyEarnings} onChange={handleChange} className='w-full p-4 bg-muted border-none rounded-2xl' />
+                    <input 
+                      name='avgWeeklyEarnings' 
+                      type='number' 
+                      min='1000'
+                      max='50000'
+                      placeholder='5000'
+                      value={formData.avgWeeklyEarnings} 
+                      onChange={handleChange} 
+                      className='w-full p-4 bg-muted border-none rounded-2xl' 
+                    />
+                    <p className="text-[9px] text-secondary">Estimated weekly earnings (₹1,000 - ₹50,000)</p>
+                  </div>
+                  <div className="space-y-2">
+                    <label className='text-[10px] font-bold text-secondary uppercase tracking-[0.2em]'>Working Days/Week</label>
+                    <select 
+                      name='workingDaysPerWeek' 
+                      value={formData.workingDaysPerWeek} 
+                      onChange={handleChange} 
+                      className='w-full p-4 bg-muted border-none rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none appearance-none'
+                    >
+                      <option value=''>Select days</option>
+                      {[1,2,3,4,5,6,7].map(day => (
+                        <option key={day} value={day}>{day} day{day > 1 ? 's' : ''}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className='text-[10px] font-bold text-secondary uppercase tracking-[0.2em]'>Working Hours/Day</label>
+                    <select 
+                      name='workingHoursPerDay' 
+                      value={formData.workingHoursPerDay} 
+                      onChange={handleChange} 
+                      className='w-full p-4 bg-muted border-none rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none appearance-none'
+                    >
+                      <option value=''>Select hours</option>
+                      {[4,5,6,7,8,9,10,11,12].map(hour => (
+                        <option key={hour} value={hour}>{hour} hour{hour > 1 ? 's' : ''}</option>
+                      ))}
+                    </select>
                   </div>
                 </div>
                 <div className='flex gap-4'>
@@ -200,7 +296,14 @@ const OnboardingPage = () => {
                 </div>
                 <div className="space-y-2">
                   <label className='text-[10px] font-bold text-secondary uppercase tracking-[0.2em] text-center block'>Your UPI ID</label>
-                  <input name='upiId' placeholder='name@bank' value={formData.upiId} onChange={handleChange} className='w-full p-6 bg-muted border-none rounded-[2rem] text-3xl text-center font-bold tracking-tight text-primary outline-none focus:ring-2 focus:ring-primary/10' />
+                  <input 
+                    name='upiId' 
+                    placeholder='name@bank'
+                    value={formData.upiId} 
+                    onChange={handleChange} 
+                    className='w-full p-6 bg-muted border-none rounded-[2rem] text-3xl text-center font-bold tracking-tight text-primary outline-none focus:ring-2 focus:ring-primary/10' 
+                  />
+                  <p className="text-[9px] text-secondary text-center">Format: name@bank (e.g., rajesh@ybl)</p>
                 </div>
                 <div className='flex gap-4'>
                   <button onClick={prevStep} className='flex-1 border border-border text-secondary p-5 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-muted transition-all'>Back</button>
