@@ -31,14 +31,25 @@ export const AlertBanner: React.FC = () => {
   if (!activeDisruption) return null;
 
   const typeFormatted = activeDisruption.type ? activeDisruption.type.split('_').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : 'Disruption';
-  const zone = activeDisruption.affectedZones?.[0] || 'your zone';
+    
+    // Default to the first affected zone, or a generic message
+    let zoneText = activeDisruption.affectedZones?.[0] || 'your area';
+    
+    // If it affects multiple zones, format it nicely
+    if (activeDisruption.affectedZones?.length > 1) {
+      if (activeDisruption.affectedZones.length > 3) {
+        zoneText = `${activeDisruption.affectedZones[0]} and ${activeDisruption.affectedZones.length - 1} other zones`;
+      } else {
+        zoneText = activeDisruption.affectedZones.join(', ');
+      }
+    }
 
-  return (
-    <section className="mb-10">
-      <div className="bg-red-50 border-l-4 border-destructive text-primary rounded-xl px-6 py-4 flex items-center justify-between shadow-sm">
-        <div className="flex items-center space-x-3">
-          <span className="material-symbols-outlined text-destructive" style={{ fontVariationSettings: "'FILL' 1" }}>error</span>
-          <p className="font-medium">Alert: {typeFormatted} detected in {zone}. Your claim is being processed automatically.</p>
+    return (
+      <section className="mb-10">
+        <div className="bg-red-50 border-l-4 border-destructive text-primary rounded-xl px-6 py-4 flex items-center justify-between shadow-sm">
+          <div className="flex items-center space-x-3">
+            <span className="material-symbols-outlined text-destructive" style={{ fontVariationSettings: "'FILL' 1" }}>error</span>
+            <p className="font-medium">Alert: {typeFormatted} detected in {zoneText}. Your claim is being processed automatically.</p>
         </div>
         <button 
           onClick={() => {

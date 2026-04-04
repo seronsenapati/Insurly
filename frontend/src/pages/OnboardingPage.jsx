@@ -11,6 +11,7 @@ const ZONES = ['Patia', 'Nayapalli', 'Saheed Nagar', 'Khandagiri', 'Rasulgarh', 
 
 const OnboardingPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -98,8 +99,14 @@ const OnboardingPage = () => {
       }
       
       localStorage.setItem('insurly_token', token);
-      const riskData = res.data.data?.riskProfile || res.data.data?.worker?.riskProfile;
-      setRiskAssessment(riskData || { score: 65, explanation: 'Standard risk profile generated.' });
+      
+      const workerData = res.data.data;
+      if (workerData?.riskScore && workerData?.riskProfile) {
+        setRiskAssessment({ score: workerData.riskScore, explanation: workerData.riskProfile });
+      } else {
+        setRiskAssessment({ score: 65, explanation: 'Standard risk profile generated.' });
+      }
+      
       nextStep();
     } catch (err) {
       console.error('Registration error:', err);
@@ -195,7 +202,24 @@ const OnboardingPage = () => {
                   </div>
                   <div className="space-y-2">
                     <label className='text-[10px] font-bold text-secondary uppercase tracking-[0.2em]'>Password</label>
-                    <input name='password' type='password' value={formData.password} onChange={handleChange} className='w-full p-4 bg-muted border-none rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all' />
+                    <div className="relative">
+                      <input 
+                        name='password' 
+                        type={showPassword ? 'text' : 'password'} 
+                        value={formData.password} 
+                        onChange={handleChange} 
+                        className='w-full p-4 bg-muted border-none rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all pr-12' 
+                      />
+                      <button
+                        type="button"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-secondary hover:text-primary transition-colors"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        <span className="material-symbols-outlined text-lg flex items-center justify-center">
+                          {showPassword ? 'visibility_off' : 'visibility'}
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <button 
@@ -355,11 +379,11 @@ const OnboardingPage = () => {
                     >
                       <div>
                         <span className='text-[10px] font-bold text-secondary uppercase tracking-[0.2em] mb-1 block'>{tier.tier} Coverage</span>
-                        <p className='text-2xl font-serif italic font-bold text-primary group-hover:translate-x-1 transition-transform'>{formatCurrency(tier.maxCoverage)} Total Protection</p>
-                        <p className='text-[10px] text-secondary font-bold uppercase tracking-widest mt-2'>₹{tier.dailyPayout} Daily Payout on Trigger</p>
+                        <p className='text-2xl font-serif italic font-bold text-primary group-hover:translate-x-1 transition-transform'>{formatCurrency(tier.maxWeeklyPayout)} Total Protection</p>
+                        <p className='text-[10px] text-secondary font-bold uppercase tracking-widest mt-2'>₹{tier.maxWeeklyPayout} Max Weekly Payout</p>
                       </div>
                       <div className='text-right'>
-                        <span className='text-3xl font-bold text-primary'>{formatCurrency(tier.premium)}</span>
+                        <span className='text-3xl font-bold text-primary'>{formatCurrency(tier.weeklyPremium)}</span>
                         <span className='text-[10px] font-bold text-secondary uppercase tracking-widest block'>/WEEK</span>
                       </div>
                     </div>
@@ -404,7 +428,7 @@ const OnboardingPage = () => {
       
       {showPayment && selectedTier && (
         <MockPaymentModal 
-          amount={selectedTier.premium} 
+          amount={selectedTier.weeklyPremium} 
           onSuccess={handlePaymentSuccess} 
           onCancel={() => setShowPayment(false)} 
         />

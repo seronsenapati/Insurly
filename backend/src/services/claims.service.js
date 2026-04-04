@@ -88,22 +88,9 @@ const autoCreateClaims = async (disruptionEvent) => {
           status: claimStatus,
           fraudScore: fraudResult.fraudScore,
           fraudReasons: fraudResult.fraudReasons,
-          fraudAnalysis: JSON.stringify(fraudResult.checkResults),
-          autoProcessed: claimStatus === 'auto_approved',
-          processedAt: claimStatus === 'auto_approved' ? new Date() : null
-        });
-
-        claimsCreated++;
-        console.log(`[${new Date().toISOString()}] ✅ Claim created for ${worker.name} with ID: ${claim._id}`);
-
-        // Auto-process payout for auto_approved claims
-        if (claimStatus === 'auto_approved') {
-          try {
-            console.log(`[${new Date().toISOString()}] 💰 Processing payout for ${worker.name}: ₹${payoutAmount}`);
-            const payoutResult = await processPayout(
-              worker._id.toString(),
-              payoutAmount,
-              worker.upiId || 'default@upi'
+            fraudAnalysis: JSON.stringify(fraudResult.checkResults),
+            autoProcessed: ['auto_approved', 'conditionally_approved'].includes(claimStatus),
+            processedAt: ['auto_approved', 'conditionally_approved'].includes(claimStatus) ? new Date() : null
             );
 
             await Payout.create({
