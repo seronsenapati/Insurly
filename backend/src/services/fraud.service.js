@@ -124,7 +124,7 @@ const runAllFraudChecks = async (worker, policy, claim, disruptionEvent) => {
 
   const velocityResult = await checkZoneClaimVelocity(worker.zone.area, disruptionEvent._id);
   checkResults.zoneVelocity = velocityResult.count;
-  if (velocityResult.isSuspicious) { fraudScore += 45; fraudReasons.push(`Abnormal claim velocity: \ claims in zone in last 2 minutes`); }
+  if (velocityResult.isSuspicious) { fraudScore += 45; fraudReasons.push(`Abnormal claim velocity: ${velocityResult.count} claims in zone in last 2 minutes`); }
 
   const presenceResult = await checkHistoricalZonePresence(worker._id, worker.zone.area);
   checkResults.historicalPresence = presenceResult.visitCount;

@@ -55,18 +55,25 @@ const autoCreateClaims = async (disruptionEvent) => {
         };
 
         // Run fraud checks
-        const tempClaim = { id: 'temp' };
+        const tempClaim = { 
+          id: 'temp',
+          triggerType: disruptionEvent.type,
+          createdAt: new Date()
+        };
         const fraudResult = await runAllFraudChecks(worker, policy, tempClaim, disruptionEvent);
-        // Send neutral notification if flagged
-        if (fraudResult.fraudScore >= 70 && fraudResult.fraudScore < 100) {
-        }
-
+        
+        // Log fraud check results for debugging
+        console.log(`[${new Date().toISOString()}] 🕵️ Fraud check for ${worker.name}: Score ${fraudResult.fraudScore}, Reasons: ${fraudResult.fraudReasons.join(', ')}`);
+        
         // Skip if duplicate claim detected (fraud score 100)
         if (fraudResult.fraudScore >= 100) {
+          console.log(`[${new Date().toISOString()}] ⚠️ Skipping duplicate claim for ${worker.name}`);
           continue;
         }
 
         const claimStatus = getClaimStatusFromFraudScore(fraudResult.fraudScore);
+
+        console.log(`[${new Date().toISOString()}] 📋 Creating claim for ${worker.name}: ${claimStatus}, Amount: ₹${payoutAmount}`);
 
         // Create claim
         const claim = await Claim.create({
@@ -81,16 +88,18 @@ const autoCreateClaims = async (disruptionEvent) => {
           status: claimStatus,
           fraudScore: fraudResult.fraudScore,
           fraudReasons: fraudResult.fraudReasons,
-          fraudAnalysis: fraudResult.fraudAnalysis,
+          fraudAnalysis: JSON.stringify(fraudResult.checkResults),
           autoProcessed: claimStatus === 'auto_approved',
           processedAt: claimStatus === 'auto_approved' ? new Date() : null
         });
 
         claimsCreated++;
+        console.log(`[${new Date().toISOString()}] ✅ Claim created for ${worker.name} with ID: ${claim._id}`);
 
         // Auto-process payout for auto_approved claims
         if (claimStatus === 'auto_approved') {
           try {
+            console.log(`[${new Date().toISOString()}] 💰 Processing payout for ${worker.name}: ₹${payoutAmount}`);
             const payoutResult = await processPayout(
               worker._id.toString(),
               payoutAmount,
@@ -113,6 +122,7 @@ const autoCreateClaims = async (disruptionEvent) => {
 
             payoutsProcessed++;
             totalPayoutAmount += payoutAmount;
+            console.log(`[${new Date().toISOString()}] ✅ Payout completed for ${worker.name}: ₹${payoutAmount} to ${worker.upiId}`);
 
           } catch (payoutError) {
             console.error(`[${new Date().toISOString()}] ❌ Payout failed for ${worker.name}:`, payoutError.message);
@@ -128,6 +138,7 @@ const autoCreateClaims = async (disruptionEvent) => {
             });
           }
         } else {
+          console.log(`[${new Date().toISOString()}] ⏳ Claim ${claim._id} status: ${claimStatus} - requires manual review`);
         }
       } catch (workerError) {
         console.error(`[${new Date().toISOString()}] ❌ Error processing worker:`, workerError.message);

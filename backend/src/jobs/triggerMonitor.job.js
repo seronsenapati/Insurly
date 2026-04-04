@@ -94,13 +94,16 @@ const startTriggerMonitor = () => {
 
       // Step 7-15: Process each triggered disruption
       if (disruptions.length === 0) {
+        console.log(`[${timestamp} 🤝 No disruption thresholds crossed - monitoring continues`);
       } else {
+        console.log(`[${timestamp} 🚨 DISRUPTIONS DETECTED: ${disruptions.map(d => d.type).join(', ')}`);
 
         let totalClaims = 0;
         let totalPayouts = 0;
         let totalPayoutAmount = 0;
 
         for (const disruption of disruptions) {
+          console.log(`[${timestamp} 📡 Processing ${disruption.type}: ${disruption.reading}${disruption.unit} (${disruption.severity} severity)`);
           // Check for recent similar event (avoid duplicates within 2 hours)
           const twoHoursAgo = new Date(Date.now() - 2 * 60 * 60 * 1000);
           const recentEvent = await DisruptionEvent.findOne({
@@ -109,6 +112,7 @@ const startTriggerMonitor = () => {
           });
 
           if (recentEvent) {
+            console.log(`[${timestamp} ⏭️ Skipping ${disruption.type} - recent event already processed at ${recentEvent.timestamp}`);
             continue;
           }
 
@@ -123,22 +127,25 @@ const startTriggerMonitor = () => {
             source: disruption.source
           });
 
-          // Auto-create claims
-          // Adding required fraud check pipeline logic for reporting
+          console.log(`[${timestamp} 📝 DisruptionEvent created: ${event._id} for zones: ${event.affectedZones.join(', ')}`);
+
+          // Find affected workers and policies
           const affectedWorkers = await Worker.find({ 'zone.area': { $in: event.affectedZones } });
+          console.log(`[${timestamp} 👥 Found ${affectedWorkers.length} workers in affected zones`);
+
           const activePolicies = await Policy.find({ workerId: { $in: affectedWorkers.map(w => w._id) }, status: 'active' });
-          for (const worker of affectedWorkers) {
-            const policy = activePolicies.find(p => p.workerId.toString() === worker._id.toString());
-            if (policy) {
-              const tempClaim = { triggerType: event.type };
-              const fResult = await runAllFraudChecks(worker, policy, tempClaim, event);
-            }
-          }
+          console.log(`[${timestamp} 📋 Found ${activePolicies.length} active policies`);
+
+          // Auto-create claims
           const result = await autoCreateClaims(event);
           totalClaims += result.claimsCreated;
           totalPayouts += result.payoutsProcessed;
           totalPayoutAmount += result.totalPayoutAmount;
+
+          console.log(`[${timestamp} ✅ ${disruption.type} processed: ${result.claimsCreated} claims, ${result.payoutsProcessed} payouts, ₹${result.totalPayoutAmount} total`);
         }
+
+        console.log(`[${timestamp} 📊 SUMMARY: ${totalClaims} total claims, ${totalPayouts} payouts processed, ₹${totalPayoutAmount} total payout amount`);
 
       }
 

@@ -38,15 +38,32 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password, role = "worker") => {
     const endpoint = role === "admin" ? "/auth/admin/login" : "/auth/login";
-    const res = await api.post(endpoint, { email, password });
+    try {
+      const res = await api.post(endpoint, { email, password });
 
-    const token = res.data.token || res.data.data?.token;
-    localStorage.setItem("insurly_token", token);
-    localStorage.setItem("insurly_role", role);
-    const userData = res.data.data?.worker || res.data.data || {};
-    setUser({ ...userData, role });
-    setIsAuthenticated(true);
-    return res.data;
+      const token = res.data.token || res.data.data?.token;
+      if (!token) {
+        throw new Error('No token received from server');
+      }
+
+      localStorage.setItem("insurly_token", token);
+      localStorage.setItem("insurly_role", role);
+      
+      // Handle different response structures for admin vs worker
+      let userData;
+      if (role === "admin") {
+        userData = res.data.data || res.data;
+      } else {
+        userData = res.data.data?.worker || res.data.data || {};
+      }
+      
+      setUser({ ...userData, role });
+      setIsAuthenticated(true);
+      return res.data;
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
+    }
   };
 
   const register = async (userData) => {

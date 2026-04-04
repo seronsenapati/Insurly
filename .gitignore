@@ -81,3 +81,4 @@ __tests__/
 *.zip
 *.rar
 *.tar.gz
+backend/.env.example

@@ -23,10 +23,18 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // If unauthorized, could clear token and redirect to login
+    // If unauthorized, clear token and redirect to appropriate login
     if (error.response?.status === 401) {
       localStorage.removeItem('insurly_token');
-      window.location.href = '/login';
+      localStorage.removeItem('insurly_role');
+      
+      // Check current path to determine correct redirect
+      const currentPath = window.location.pathname;
+      if (currentPath.startsWith('/admin')) {
+        window.location.href = '/admin/login';
+      } else {
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }

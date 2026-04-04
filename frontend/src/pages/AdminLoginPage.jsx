@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import toast from 'react-hot-toast';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Eye, EyeOff, Shield } from 'lucide-react';
 
 const AdminLoginPage = () => {
   const [email, setEmail] = useState('');
@@ -23,10 +23,12 @@ const AdminLoginPage = () => {
     try {
       setIsSubmitting(true);
       await login(email, password, 'admin');
-      toast.success('Logged in successfully as admin');
+      toast.success('Admin login successful');
       navigate('/admin/dashboard');
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Login failed. Invalid credentials.');
+      console.error('Admin login error:', error);
+      const errorMessage = error.response?.data?.message || error.message || 'Login failed. Please check your credentials.';
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -47,18 +49,28 @@ const AdminLoginPage = () => {
         </div>
 
         <div className="bg-white rounded-[3rem] p-10 border border-border/10 shadow-sm">
+          {/* Security Badge */}
+          <div className="flex items-center justify-center mb-8">
+            <div className="flex items-center space-x-2 bg-amber-50 px-4 py-2 rounded-full border border-amber-200">
+              <Shield className="w-4 h-4 text-amber-600" />
+              <span className="text-[10px] font-bold uppercase tracking-widest text-amber-700">Admin Access</span>
+            </div>
+          </div>
+
           <form onSubmit={handleLogin} className="space-y-8">
-            <h2 className="text-4xl font-serif italic text-primary">Admin Access</h2>
+            <h2 className="text-4xl font-serif italic text-primary text-center">Admin Access</h2>
             
             <div className="space-y-6">
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-secondary">Admin Email</label>
                 <input 
-                  type="text"
+                  type="email"
                   placeholder="admin@insurly.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-muted border-none rounded-2xl p-4 focus:ring-2 focus:ring-primary/20 transition-all outline-none"
+                  autoComplete="email"
+                  required
                 />
               </div>
 
@@ -69,16 +81,17 @@ const AdminLoginPage = () => {
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full bg-muted border-none rounded-2xl p-4 focus:ring-2 focus:ring-primary/20 transition-all outline-none"
+                    className="w-full bg-muted border-none rounded-2xl p-4 pr-12 focus:ring-2 focus:ring-primary/20 transition-all outline-none"
+                    placeholder="Enter admin password"
+                    autoComplete="current-password"
+                    required
                   />
                   <button
                     type="button"
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-secondary hover:text-primary"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-secondary hover:text-primary transition-colors"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    <span className="material-symbols-outlined text-lg">
-                      {showPassword ? 'visibility_off' : 'visibility'}
-                    </span>
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
                 </div>
               </div>
@@ -90,9 +103,9 @@ const AdminLoginPage = () => {
                 onClick={autofillAdmin}
                 className="text-[10px] font-bold uppercase tracking-widest text-secondary hover:text-primary transition-colors underline decoration-dotted"
               >
-                Auto-fill Demo
+                Use Demo Credentials
               </button>
-              <Link to="#" className="text-[10px] font-bold uppercase tracking-widest text-secondary hover:text-primary">Forgot Password?</Link>
+              <span className="text-[10px] text-secondary">Secure Access</span>
             </div>
 
             <button 
@@ -101,9 +114,23 @@ const AdminLoginPage = () => {
               disabled={isSubmitting}
             >
               {isSubmitting ? <Loader2 className="animate-spin h-5 w-5" /> : null}
-              <span>Login to Admin Portal</span>
+              <span>{isSubmitting ? 'Authenticating...' : 'Login to Admin Portal'}</span>
             </button>
           </form>
+
+          {/* Security Note */}
+          <div className="mt-8 p-4 bg-blue-50 rounded-2xl border border-blue-100">
+            <p className="text-[10px] text-blue-700 text-center">
+              🔒 This is a restricted access area. Unauthorized access attempts are monitored and logged.
+            </p>
+          </div>
+        </div>
+
+        {/* Back to Main Site */}
+        <div className="text-center mt-8">
+          <Link to="/" className="text-[10px] font-bold uppercase tracking-widest text-secondary hover:text-primary transition-colors">
+            ← Back to Main Site
+          </Link>
         </div>
       </div>
     </div>

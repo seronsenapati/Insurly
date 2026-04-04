@@ -15,12 +15,18 @@ export const ProtectedRoute = ({ allowedRoles = ['worker', 'admin'] }) => {
   }
 
   if (!isAuthenticated) {
+    // Redirect to appropriate login page based on requested route
+    const currentPath = window.location.pathname;
+    if (currentPath.startsWith('/admin')) {
+      return <Navigate to="/admin/login" replace />;
+    }
     return <Navigate to="/login" replace />;
   }
 
   if (user && !allowedRoles.includes(user.role)) {
     // Redirect admin trying to access worker page, or worker trying to access admin page
-    return <Navigate to={user.role === 'admin' ? '/admin/dashboard' : '/worker/dashboard'} replace />;
+    const targetRoute = user.role === 'admin' ? '/admin/dashboard' : '/worker/dashboard';
+    return <Navigate to={targetRoute} replace />;
   }
 
   return <Outlet />;
