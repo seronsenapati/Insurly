@@ -10,6 +10,7 @@ import LiveDisruptionFeed from '../components/landing/LiveDisruptionFeed';
 import ZoneRiskHeatmap from '../components/landing/ZoneRiskHeatmap';
 import ClaimsProcessingTable from '../components/landing/ClaimsProcessingTable';
 import LossRatioChart from '../components/landing/LossRatioChart';
+import PredictiveAnalyticsPanel from '../components/landing/PredictiveAnalyticsPanel';
 
 const AdminDashboard = () => {
   const [overview, setOverview] = useState(null);
@@ -93,11 +94,12 @@ const AdminDashboard = () => {
 
           {/* Bottom Row: Claims & Analytics */}
           <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
-            <div id="claims" className="xl:col-span-8">
+            <div id="claims" className="xl:col-span-8 space-y-10">
               <ClaimsProcessingTable />
             </div>
-            <div className="xl:col-span-4">
+            <div className="xl:col-span-4 space-y-10">
               <LossRatioChart />
+              <PredictiveAnalyticsPanel />
             </div>
           </div>
 
